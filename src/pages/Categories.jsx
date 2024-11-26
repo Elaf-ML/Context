@@ -4,11 +4,9 @@ import Header from '../component/Header';
 const Categories = () => {
   const [categories, setCategories] = useState([]);
 
-  // Fetch categories when the component mounts
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        // Replace this URL with your actual API endpoint
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
         const data = await response.json();
         setCategories(data.categories);

@@ -7,34 +7,6 @@ const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const formStyle = {
-    backgroundColor: '#fff',
-    padding: '203px',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    maxWidth: '400px',
-    margin: '10px',
-  };
-
-  const inputStyle = {
-    display: 'block',
-    width: '100%',
-    margin: '10px 0',
-    padding: '10px',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
-  };
-
-  const buttonStyle = {
-    backgroundColor: '#007BFF',
-    color: '#fff',
-    padding: '10px 15px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    width:"100px"
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = users.find((u) => u.username === username && u.password === password);
@@ -46,14 +18,17 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-6 md:p-8 lg:p-10 rounded-lg shadow-md max-w-md mx-auto mt-8"
+    >
       <input
         type="text"
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         required
-         style={inputStyle}
+        className="block w-full my-4 p-3 border rounded-md border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
       />
       <input
         type="password"
@@ -61,15 +36,16 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-         style={inputStyle}
+        className="block w-full my-4 p-3 border rounded-md border-gray-300 focus:outline-none focus:ring focus:ring-blue-300"
       />
-      <button type="submit" style={buttonStyle}>Login</button>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors w-full mt-4"
+      >
+        Login
+      </button>
     </form>
   );
 };
 
 export default LoginForm;
-
-
-
-
