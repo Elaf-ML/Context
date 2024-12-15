@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { useParams } from 'react-router-dom';
-
+import Header from '../component/Header';
 const ItemPage = () => {
   const { id } = useParams();
   const { user, addFavorite, removeFavorite } = useContext(UserContext);
@@ -35,6 +35,8 @@ const ItemPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <Header />
+      <br/>
       <h1 className="text-3xl font-bold text-center mb-4">{item.strMeal}</h1>
       <div className="flex flex-col md:flex-row items-center justify-between mb-6">
         <img
