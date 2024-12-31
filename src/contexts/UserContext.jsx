@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const login = (name) => {
-    const newUser = { name, favorites: [] };
+    const newUser = { name, favorites: [], savedCategories: [] };
     setUser(newUser);
     localStorage.setItem('user', JSON.stringify(newUser));
   };
@@ -44,8 +44,25 @@ export const UserProvider = ({ children }) => {
     });
   };
 
+  const saveCategory = (category) => {
+    setUser((prevUser) => {
+      const updatedCategories = [...(prevUser.savedCategories || []), category];
+      const updatedUser = { ...prevUser, savedCategories: updatedCategories };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
+
+  const removeSavedCategory = (category) => {
+    setUser((prevUser) => {
+      const updatedCategories = prevUser.savedCategories.filter(savedCategory => savedCategory !== category);
+      const updatedUser = { ...prevUser, savedCategories: updatedCategories };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      return updatedUser;
+    });
+  };
   return (
-    <UserContext.Provider value={{ user, login, logout, addFavorite, removeFavorite }}>
+    <UserContext.Provider value={{ user, login, logout, addFavorite, removeFavorite, saveCategory, removeSavedCategory }}>
       {children}
     </UserContext.Provider>
   );

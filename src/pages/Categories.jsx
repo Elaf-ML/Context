@@ -37,6 +37,7 @@ const Categories = () => {
     borderRadius: '4px',
   };
 
+
   return (
     <div style={containerStyle}>
       <Header/>
@@ -45,6 +46,7 @@ const Categories = () => {
         <p>Loading categories...</p>
       ) : (
         categories.map((category) => (
+          <div>
           <Link
             key={category.idCategory}
             to={`/categories/${category.strCategory}`}
@@ -52,6 +54,7 @@ const Categories = () => {
           >
             {category.strCategory}
           </Link>
+          </div>
         ))
       )}
     </div>

@@ -1,25 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../component/Header';
-const CategoryItems = () => {
-  const { category } = useParams(); // Get the category parameter from the URL
-  const [items, setItems] = useState([]);
+import { UserContext } from '../contexts/UserContext';
 
-  // Fetch category items based on the selected category
+const CategoryItems = () => {
+  const { category } = useParams(); 
+  const [items, setItems] = useState([]);
+  const { saveCategory, user } = useContext(UserContext);
+  const [isSaved, setIsSaved] = useState(false);
+
   useEffect(() => {
     const fetchCategoryItems = async () => {
       try {
-        // Replace with your actual API endpoint
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
         const data = await response.json();
-        setItems(data.meals || []); // Assuming meals data is returned
+        setItems(data.meals || []); 
       } catch (error) {
         console.error("Error fetching category items:", error);
       }
     };
 
     fetchCategoryItems();
-  }, [category]); // Refetch whenever category changes
+  }, [category]);
+
+  useEffect(() => {
+    if (user && user.savedCategories.includes(category)) {
+      setIsSaved(true);
+    }
+  }, [user, category]);
 
   const containerStyle = {
     padding: '20px',
@@ -38,10 +46,26 @@ const CategoryItems = () => {
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   };
 
+  const buttonStyle = {
+    backgroundColor: isSaved ? 'green' : '#c72300',
+    padding: '15px',
+    color: '#fff',
+    border: '2px solid ',
+    borderRadius: '3px',
+  };
+
+  const handleSaveCategory = () => {
+    saveCategory(category);
+    setIsSaved(true);
+  };
+
   return (
     <div style={containerStyle}>
-        <Header/>
+      <Header />
       <h1>{category} Items</h1>
+      <button style={buttonStyle} onClick={handleSaveCategory} disabled={isSaved}>
+        {isSaved ? 'Category Saved' : 'Save Category'}
+      </button>
       {items.length === 0 ? (
         <p>No items found for this category.</p>
       ) : (
