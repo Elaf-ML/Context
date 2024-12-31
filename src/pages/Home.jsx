@@ -72,6 +72,17 @@ const Home = () => {
     return <div>Loading...</div>;
   }
 
+  if (!user) {
+    return (
+      <div style={homeStyle}>
+        <Header />
+        <h1>Welcome to Our Recipe App</h1>
+        <p>Please log in to see your saved categories.</p>
+       <Link to={'/LoginForm'}><button>Go to Login</button></Link> 
+      </div>
+    );
+  }
+
   return (
     <div style={homeStyle}>
       <Header />

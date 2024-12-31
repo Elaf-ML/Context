@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserContext';
 import { users } from '../data/users';
-
+import { useNavigate } from 'react-router-dom';
 const LoginForm = () => {
   const { login } = useContext(UserContext);
   const [username, setUsername] = useState('');
@@ -9,13 +9,14 @@ const LoginForm = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
   const [newUsername, setNewUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
-
+  const navigate = useNavigate();
   // Handle login submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = users.find((u) => u.username === username && u.password === password);
     if (user) {
       login(username);
+      navigate('/')
     } else {
       alert('Invalid credentials!');
     }
