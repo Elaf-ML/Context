@@ -30,7 +30,14 @@ const Home = () => {
 
     fetchCategoryItems();
   }, [user]);
+  const ButtonStyle = {
+    backgroundColor: 'red',
+    color: 'white',
+    border: 'none',
+    padding: '5px',
+    borderRadius: '5px',
 
+  };
   const homeStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -68,6 +75,8 @@ const Home = () => {
     borderRadius: '4px',
   };
 
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -78,7 +87,7 @@ const Home = () => {
         <Header />
         <h1>Welcome to Our Recipe App</h1>
         <p>Please log in to see your saved categories.</p>
-       <Link to={'/LoginForm'}><button>Go to Login</button></Link> 
+       <Link to={'/LoginForm'}><button style={ButtonStyle}>Go to Login</button></Link> 
       </div>
     );
   }
