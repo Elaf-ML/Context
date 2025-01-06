@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../component/Header';
 
 const Profile = () => {
-  const { user, removeSavedCategory ,removeFavorite } = useContext(UserContext);
+  const { user, removeSavedCategory, removeFavorite } = useContext(UserContext);
 
   if (!user) return <div>Please log in to see your profile.</div>;
 
@@ -31,10 +31,10 @@ const Profile = () => {
     alignItems: 'center',
     padding: '10px',
     margin: '10px',
-    border: '1px solid #000',
+    border: '1px solid #ddd',
     borderRadius: '8px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    width: '150px',
+    width: '200px',
   };
 
   const imgStyle = {
@@ -42,21 +42,21 @@ const Profile = () => {
     borderRadius: '8px',
   };
 
-  const RemoveButton={
+  const RemoveButton = {
     backgroundColor: 'red',
     color: 'white',
     border: 'none',
     padding: '5px',
     borderRadius: '5px',
     cursor: 'pointer',
+  };
 
-
-  }
   const handleRemoveCategory = (category) => {
     removeSavedCategory(category);
   };
-  const handleRemoveFavo = (category) => {
-    removeFavorite(category);
+
+  const handleRemoveFavo = (item) => {
+    removeFavorite(item.idMeal);
   };
 
   return (
@@ -79,7 +79,6 @@ const Profile = () => {
                 <p>{item.strMeal}</p>
               </Link>
               <button style={RemoveButton} onClick={() => handleRemoveFavo(item)}>Remove</button>
-
             </div>
           ))}
         </div>
@@ -99,7 +98,7 @@ const Profile = () => {
                 />
                 <p>{category}</p>
               </Link>
-              <button style={RemoveButton} onClick={() => handleRemoveCategory(category)}>Remove</button>
+              <button style={RemoveButton} onClick={() => handleRemoveCategory(category)}>Remove Category</button>
             </div>
           ))}
         </div>
